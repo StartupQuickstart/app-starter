@@ -11,6 +11,7 @@ export function App() {
       Auth={new Auth('v1')}
       Api={Api}
       routes={routes}
+      configPath="/api/v1/config"
       sidebarItems={[
         {
           name: '',
