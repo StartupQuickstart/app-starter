@@ -8,10 +8,15 @@
     "build": "startupquickstart build",
     "dev": "startupquickstart dev",
     "dev:client": "startupquickstart dev:client",
-    "dev:db": "startupquickstart dev:db",
+    "dev:db": "bash ./bin/dev-db.sh",
     "db:migration": "startupquickstart db:migration $1",
     "db:migrate": "startupquickstart db:migrate",
-    "db:seed": "startupquickstart db:seed"
+    "db:seed": "startupquickstart db:seed",
+    "deps:install": "bash ./bin/install.sh",
+    "deps:update": "bash ./bin/install.sh",
+    "setup": "bash ./bin/setup.sh",
+    "setup:gmail": "startupquickstart setup:gmail",
+    "awscreds": "aws sso login && $(yawsso -e)"
   },
   "author": "Thomas Boles <thomas@startupquickstart.com> (https://github.com/startupquickstart)",
   "license": "MIT",
@@ -21,7 +26,8 @@
     "@babel/node": "^7.16.8",
     "@babel/plugin-transform-runtime": "^7.16.10",
     "@babel/preset-env": "^7.16.11",
-    "eslint": "^7.32.0",
+    "@babel/register": "^7.17.7",
+    "eslint": "^8.18.0",
     "eslint-config-babel": "^9.0.0",
     "eslint-config-google": "^0.14.0",
     "npm-run-all": "^4.1.5"
@@ -29,8 +35,9 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.16.5",
     "@babel/runtime": "^7.16.7",
-    "@startupquickstart/server": "^0.2.47",
+    "@startupquickstart/server": "^0.4.59",
     "babel-plugin-root-import": "^6.6.0",
+    "prompt": "^1.3.0",
     "shelljs": "^0.8.5"
   }
 }
