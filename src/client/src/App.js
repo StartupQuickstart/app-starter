@@ -23,7 +23,7 @@ export function App() {
           items: [{ name: 'Users', to: '/admin/users', icon: 'Users' }],
         },
       ]}
-      requireActivation={false}
+      requireActivation={true}
       callToAction={{
         title: 'StartupQuickStart Beta',
         description: 'This is a beta version of the StartupQuickStart.',

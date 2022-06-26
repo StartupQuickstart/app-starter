@@ -1,0 +1,59 @@
+# You can use any of these parameters to create conditions or mappings in your template.
+Parameters:
+  App:
+    Type: String
+    Description: Your application's name.
+  Env:
+    Type: String
+    Description: The environment name your service, job, or workflow is being deployed to.
+  Name:
+    Type: String
+    Description: The name of the service, job, or workflow being deployed.
+
+Resources:
+  SecretAccessPolicy:
+    Type: AWS::IAM::ManagedPolicy
+    Properties:
+      PolicyDocument:
+        Version: 2012-10-17
+        Statement:
+          - Action:
+              - ssm:GetParameter
+              - ssm:GetParameters
+              - ssm:PutParameter
+            Effect: Allow
+            Resource:
+              - !Join
+                - ''
+                - - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${App}/'
+                  - !Select [0, !Split ['-', !Ref Env]]
+                  - '/'
+                  - !Select [1, !Split ['-', !Ref Env]]
+                  - '/*'
+              - !Join
+                - ''
+                - - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${App}/'
+                  - !Select [0, !Split ['-', !Ref Env]]
+                  - '/shared/*'
+          - Action:
+              - 'secretsmanager:GetSecretValue'
+            Effect: 'Allow'
+            Resource:
+              - !Join
+                - ''
+                - - !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:/${App}/'
+                  - !Select [0, !Split ['-', !Ref Env]]
+                  - '/'
+                  - !Select [1, !Split ['-', !Ref Env]]
+                  - !Sub '-${Name}-database/users/svc_app/*'
+          - Effect: 'Allow'
+            Action:
+              - 'kms:Decrypt'
+            Resource:
+              - !Sub 'arn:aws:kms:${AWS::Region}:${AWS::AccountId}:key/*'
+
+Outputs:
+  # 1. You need to output the IAM ManagedPolicy so that Copilot can add it as a managed policy to your ECS task role.
+  SecretAccessPolicyArn:
+    Description: "The ARN of the ManagedPolicy to attach to the task role."
+    Value: !Ref SecretAccessPolicy

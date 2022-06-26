@@ -16,7 +16,8 @@
     "deps:update": "bash ./bin/install.sh",
     "setup": "bash ./bin/setup.sh",
     "setup:gmail": "startupquickstart setup:gmail",
-    "awscreds": "aws sso login && $(yawsso -e)"
+    "setup:secret": "startupquickstart setup:secret --env $ENV",
+    "awscreds": "aws sso login --profile startupquickstart && $(yawsso -p startupquickstart -e)"
   },
   "author": "Thomas Boles <thomas@startupquickstart.com> (https://github.com/startupquickstart)",
   "license": "MIT",
@@ -35,7 +36,7 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.16.5",
     "@babel/runtime": "^7.16.7",
-    "@startupquickstart/server": "^0.4.59",
+    "@startupquickstart/server": "^0.4.61",
     "babel-plugin-root-import": "^6.6.0",
     "prompt": "^1.3.0",
     "shelljs": "^0.8.5"

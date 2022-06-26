@@ -1,0 +1,63 @@
+# The manifest for the "app" service.
+# Read the full specification for the "Request-Driven Web Service" type at:
+# https://aws.github.io/copilot-cli/docs/manifest/rd-web-service/
+
+# Your service name will be used in naming your resources like log groups, App Runner services, etc.
+name: app
+# The "architecture" of the service you're running.
+type: Request-Driven Web Service
+
+image:
+  # Docker build arguments.
+  # For additional overrides: https://aws.github.io/copilot-cli/docs/manifest/rd-web-service/#image-build
+  build: Dockerfile
+  # Port exposed through your container to route traffic to it.
+  port: 8080
+
+http:
+  # Requests to this path will be forwarded to your service.
+  # To match all requests you can use the "/" path.
+  path: '/'
+  # You can specify a custom health check path. The default is "/".
+  healthcheck: '/login'
+
+cpu: 256       # Number of CPU units for the task.
+memory: 512    # Amount of memory in MiB used by the task.
+platform: linux/x86_64  # See https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/#platform
+count: 1       # Number of tasks that should be running in your service.
+exec: true     # Enable running commands in your container.
+
+# # Connect your App Runner service to your environment's VPC.
+# network:
+#   vpc:
+#     placement: private
+
+# Enable tracing for the service.
+# observability:
+#   tracing: awsxray
+
+# Optional fields for more advanced use-cases.
+#
+variables:                    # Pass environment variables as key value pairs.
+  LOG_LEVEL: info
+  ENV_ADAPTERS: 'env,aws'
+  APP: 'startupquickstart'
+  PORT: 8080
+#
+# tags:                         # Pass tags as key value pairs.
+#   project: project-name
+
+# You can override any of the values defined above by environment.
+environments:
+  dev:
+    variables:
+      LOG_LEVEL: debug        # Log level for the "test" environment.
+      count: 1               # Number of tasks to run for the "test" environment.
+      ENV: 'dev'
+      HOST: https://dev-app.startupquickstart.com
+    http:
+      alias: dev-app.startupquickstart.com
+    network:
+      vpc:
+        security_groups:
+          - sg-08c6aebb94ddcfc79	 # network-DefaultSecurityGroup
