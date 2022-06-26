@@ -17,7 +17,7 @@
     "setup": "bash ./bin/setup.sh",
     "setup:gmail": "startupquickstart setup:gmail",
     "setup:secret": "startupquickstart setup:secret --env $ENV",
-    "awscreds": "aws sso login --profile startupquickstart && $(yawsso -p startupquickstart -e)"
+    "creds": "$(yawsso login --profile $AWS_PROFILE -e)"
   },
   "author": "Thomas Boles <thomas@startupquickstart.com> (https://github.com/startupquickstart)",
   "license": "MIT",

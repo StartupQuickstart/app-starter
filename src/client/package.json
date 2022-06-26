@@ -4,7 +4,7 @@
   "private": true,
   "dependencies": {
     "@craco/craco": "^6.4.3",
-    "@startupquickstart/react": "^0.4.57",
+    "@startupquickstart/react": "^0.4.68",
     "@testing-library/jest-dom": "^5.16.1",
     "@testing-library/react": "^13.3.0",
     "@testing-library/user-event": "^14.2.1",
@@ -20,7 +20,7 @@
     "yup": "^0.32.11"
   },
   "scripts": {
-    "start": "GENERATE_SOURCEMAP=true PORT=3500 API_PORT=3501 HOST= craco start",
+    "start": "GENERATE_SOURCEMAP=true PORT=3000 API_PORT=3001 HOST= craco start",
     "build": "craco build",
     "test": "craco test",
     "eject": "react-scripts eject"
