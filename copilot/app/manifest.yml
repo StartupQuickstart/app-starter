@@ -5,7 +5,7 @@
 # Your service name will be used in naming your resources like log groups, App Runner services, etc.
 name: app
 # The "architecture" of the service you're running.
-type: Request-Driven Web Service
+type: Load Balanced Web Service
 
 image:
   # Docker build arguments.
@@ -21,8 +21,9 @@ http:
   # You can specify a custom health check path. The default is "/".
   healthcheck: '/login'
 
-cpu: 1024       # Number of CPU units for the task.
-memory: 2048    # Amount of memory in MiB used by the task.
+cpu: 256       # Number of CPU units for the task.
+memory: 512    # Amount of memory in MiB used by the task.
+platform: linux/x86_64  # See https://aws.github.io/copilot-cli/docs/manifest/lb-web-service/#platform
 count: 1       # Number of tasks that should be running in your service.
 exec: true     # Enable running commands in your container.
 
