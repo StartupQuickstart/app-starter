@@ -50,9 +50,9 @@ variables:                    # Pass environment variables as key value pairs.
 # You can override any of the values defined above by environment.
 environments:
   dev:
+    count: 1
     variables:
       LOG_LEVEL: debug        # Log level for the "test" environment.
-      count: 1               # Number of tasks to run for the "test" environment.
       ENV: 'dev'
       HOST: https://dev-app.startupquickstart.com
     http:
@@ -60,4 +60,4 @@ environments:
     network:
       vpc:
         security_groups:
-          - sg-08c6aebb94ddcfc79	 # network-DefaultSecurityGroup
+          - sg-08c6aebb94ddcfc79  # network-DefaultSecurityGroup
