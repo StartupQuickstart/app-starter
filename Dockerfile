@@ -10,7 +10,6 @@ COPY . /usr/src/app/
 
 RUN npm install
 RUN npm install --prefix src/client
-RUN npm rebuild node-sass --prefix src/client
 
 # Bundle app source
 RUN npm run build
