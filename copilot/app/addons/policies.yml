@@ -6,9 +6,6 @@ Parameters:
   Env:
     Type: String
     Description: The environment name your service, job, or workflow is being deployed to.
-  Name:
-    Type: String
-    Description: The name of the service, job, or workflow being deployed.
 
 Resources:
   SecretAccessPolicy:
@@ -23,29 +20,12 @@ Resources:
               - ssm:PutParameter
             Effect: Allow
             Resource:
-              - !Join
-                - ''
-                - - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${App}/'
-                  - !Select [0, !Split ['-', !Ref Env]]
-                  - '/'
-                  - !Select [1, !Split ['-', !Ref Env]]
-                  - '/*'
-              - !Join
-                - ''
-                - - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${App}/'
-                  - !Select [0, !Split ['-', !Ref Env]]
-                  - '/shared/*'
+              - !Sub 'arn:aws:ssm:${AWS::Region}:${AWS::AccountId}:parameter/${App}/${Env}/*'
           - Action:
               - 'secretsmanager:GetSecretValue'
             Effect: 'Allow'
             Resource:
-              - !Join
-                - ''
-                - - !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:/${App}/'
-                  - !Select [0, !Split ['-', !Ref Env]]
-                  - '/'
-                  - !Select [1, !Split ['-', !Ref Env]]
-                  - !Sub '-${Name}-database/users/svc_app/*'
+              - !Sub 'arn:aws:secretsmanager:${AWS::Region}:${AWS::AccountId}:secret:/${App}/${Env}'
           - Effect: 'Allow'
             Action:
               - 'kms:Decrypt'
