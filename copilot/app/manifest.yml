@@ -20,6 +20,7 @@ http:
   path: '/'
   # You can specify a custom health check path. The default is "/".
   healthcheck: '/login'
+  alias: dev-app.startupquickstart.com
 
 cpu: 256       # Number of CPU units for the task.
 memory: 512    # Amount of memory in MiB used by the task.
