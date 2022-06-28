@@ -35,7 +35,7 @@
   "dependencies": {
     "@babel/eslint-parser": "^7.16.5",
     "@babel/runtime": "^7.16.7",
-    "@startupquickstart/server": "^0.4.61",
+    "@startupquickstart/server": "^0.4.70",
     "babel-plugin-root-import": "^6.6.0",
     "shelljs": "^0.8.5"
   }
